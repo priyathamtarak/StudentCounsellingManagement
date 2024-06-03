@@ -1,0 +1,156 @@
+/* General styles */
+body {
+font-family: sans-serif;
+margin: 0;
+padding: 20px;
+}
+
+h1, h2, h3 {
+margin: 10px 0;
+}
+
+ul {
+list-style: none;
+padding: 0;
+}
+
+li {
+margin-bottom: 5px;
+}
+
+/* Navigation bar */
+a {
+text-decoration: none;
+color: black;
+}
+
+a:hover {
+color: #999;
+}
+
+/* Form styles */
+label {
+display: block;
+margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="date"],
+input[type="number"],
+select {
+width: 100%;
+padding: 5px;
+border: 1px solid #ccc;
+border-radius: 3px;
+}
+
+input[type="radio"],
+input[type="checkbox"] {
+margin-right: 5px;
+}
+
+/* Success and error messages */
+p {
+margin: 10px 0;
+}
+
+.success {
+color: green;
+}
+
+.error {
+color: red;
+}
+
+/* Highlight green elements */
+.green {
+color: green;
+}
+
+.green input[type="submit"] {
+background-color: green;
+color: white;
+border: none;
+padding: 10px 15px;
+border-radius: 5px;
+cursor: pointer;
+}
+
+.green input[type="submit"]:hover {
+background-color: #008000;
+}
+/* General styles */
+body {
+font-family: sans-serif;
+margin: 0;
+padding: 20px;
+}
+
+h1, h2 {
+margin: 10px 0;
+}
+
+ul {
+list-style: none;
+padding: 0;
+}
+
+li {
+margin-bottom: 5px;
+}
+
+/* Navigation bar (assuming this exists elsewhere on your pages) */
+/* Add styles for navigation bar elements here */
+
+/* Form styles */
+label {
+display: block;
+margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="date"],
+input[type="number"],
+select {
+width: 100%;
+padding: 5px;
+border: 1px solid #ccc;
+border-radius: 3px;
+}
+
+input[type="radio"],
+input[type="checkbox"] {
+margin-right: 5px;
+}
+
+/* Success and error messages */
+.success,
+.error {
+margin: 10px 0;
+padding: 5px 10px;
+border-radius: 3px;
+}
+
+.success {
+background-color: #dff0d8;
+color: green;
+}
+
+.error {
+background-color: #f2dede;
+color: red;
+}
+
+/* Green buttons */
+.green-btn {
+background-color: green;
+color: white;
+padding: 10px 15px;
+border: none;
+border-radius: 5px;
+cursor: pointer;
+}
+
+.green-btn:hover {
+background-color: #008000;
+}
