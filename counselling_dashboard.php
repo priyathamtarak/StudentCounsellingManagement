@@ -1,18 +1,15 @@
 <?php
 session_start();
 
-// Check if user is logged in
 if (!isset($_SESSION['username'])) {
     header("Location: counsellor_login.php");
     exit;
 }
 
-include('includes/conn.php'); // Database connection
+include('includes/conn.php'); 
+$faculty_id = $_SESSION['faculty_id']; 
 
-// Get faculty ID from session
-$faculty_id = $_SESSION['faculty_id']; // Assuming a 'faculty_id' column in the $_SESSION array
 
-// Function to retrieve students assigned to the current faculty
 function getFacultyStudents($conn, $faculty_id) {
     $sql = "SELECT * FROM students WHERE faculty_id = ?";
     $stmt = $conn->prepare($sql);
@@ -22,17 +19,17 @@ function getFacultyStudents($conn, $faculty_id) {
     return $result;
 }
 
-// Function to add a new student (optional, security considerations apply)
+
 function addStudent($conn, $name, $faculty_id) {
     $sql = "INSERT INTO students (name, faculty_id) VALUES (?, ?)";
     $stmt = $conn->prepare($sql);
    
     $stmt->bind_param('si', $name, $faculty_id);
     $stmt->execute();
-    return $stmt->affected_rows > 0; // Return true if insertion was successful
+    return $stmt->affected_rows > 0; 
 }
 
-// Function to get total classes for a specific student and date
+
 function getTotalClassesByDate($conn, $student_id, $date) {
     $sql = "SELECT COUNT(*) AS total_classes FROM faculty_schedule WHERE student_id = ? AND date = ?";
     $stmt = $conn->prepare($sql);
@@ -43,7 +40,7 @@ function getTotalClassesByDate($conn, $student_id, $date) {
     return isset($row['total_classes']) ? $row['total_classes'] : 0;
 }
 
-// Function to record student attendance (implement security considerations)
+
 function recordAttendance($conn, $student_id, $date, $present) {
     $sql = "INSERT INTO attendance (student_id, date, present) VALUES (?, ?, ?)";
     $stmt = $conn->prepare($sql);
@@ -52,52 +49,48 @@ function recordAttendance($conn, $student_id, $date, $present) {
     return $stmt->affected_rows > 0; // Return true if insertion was successful
 }
 
-// Function to get student's attendance for a specific date
+
 function getStudentAttendance($conn, $student_id, $date) {
     $sql = "SELECT * FROM attendance WHERE student_id = ? AND date = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param('is', $student_id, $date);
     $stmt->execute();
     $result = $stmt->get_result();
-    return $result->num_rows > 0 ? $result->fetch_assoc() : null; // Return attendance data or null if not found
-}
+    return $result->num_rows > 0 ? $result->fetch_assoc() : null; 
 
-// Function to add midterm marks for a student (implement security considerations)
+
 function addMidtermMarks($conn, $student_id, $subject, $marks) {
     $sql = "INSERT INTO midterm_marks (student_id, subject, marks) VALUES (?, ?, ?)";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param('isi', $student_id, $subject, $marks);
     $stmt->execute();
-    return $stmt->affected_rows > 0; // Return true if insertion was successful
+    return $stmt->affected_rows > 0; 
 }
 
-// Handle form submissions (if applicable)
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-    // Process form data for attendance
-// Handle form submissions (if applicable)
 
 
 
 
     if (isset($_POST['student_attendance_multiple'])) {
       $date = $_POST['date'];
-      $present = (int)$_POST['present']; // Cast to integer for boolean value
+      $present = (int)$_POST['present']; 
   
-      // Get all student IDs
+      
       $all_student_ids = [];
       $students = getFacultyStudents($conn, $faculty_id);
       while ($student = $students->fetch_assoc()) {
         $all_student_ids[] = $student['student_id'];
       }
-  
-      // Get selected student IDs (if any)
+
       $selected_student_ids = isset($_POST['student_attendance']) ? $_POST['student_attendance'] : [];
   
-      // Determine absent student IDs
+
       $absent_student_ids = array_diff($all_student_ids, $selected_student_ids);
   
-      // Record attendance for selected and absent students
+   
       $success = true;
       foreach ($selected_student_ids as $student_id) {
         if (!recordAttendance($conn, $student_id, $date, $present)) {
@@ -120,29 +113,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       }
     }
   
-    // ... other form processing logic ...
-  
-  
-  
-    // ... other form processing logic ...
-  
-    // Process form data for midterm marks
+   
     if (isset($_POST['student_midterm_marks'])) {
         $student_id = $_POST['student_id'];
         $subject = $_POST['subject'];
-        $marks = (int)$_POST['marks']; // Cast to integer for marks value
+        $marks = (int)$_POST['marks']; 
 
         if (addMidtermMarks($conn, $student_id, $subject, $marks)) {
-            // Success message for adding midterm marks
+         
             echo '<p style="color: green;">Student added the mid marks recorded successfully!</p>';
         } else {
-            // Error message for failing to add midterm marks
+          
             echo '<p style="color: red;">Error occur while entering the mid marks.</p>';
         }exit;
     }
 }
 
-// Get students assigned to the current faculty
+
 $students = getFacultyStudents($conn, $faculty_id);
 
 ?>
@@ -181,10 +168,10 @@ $students = getFacultyStudents($conn, $faculty_id);
     <input type="text" name="student_name" id="student_name" required>
     <input type="submit" name="add_student" value="Add Student">
     <?php
-        // Display success or error message based on form submission
+        
         if (isset($_POST['add_student'])) {
             $student_name=$_POST['student_name'];
-            // Check for success or failure message from addStudent function
+            
             if (addStudent($conn, $student_name, $faculty_id)) {
                 echo '<p style="color: green;">Student added successfully!</p>';
             } else {
