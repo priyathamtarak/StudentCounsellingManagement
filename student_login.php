@@ -1,7 +1,5 @@
 <?php
 include('includes/conn.php');
-
-// Login logic (based on student name)
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $student_name = $_POST["student_name"];
 
@@ -12,7 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   $result = $conn->query($sql);
 
-  if ($result->num_rows == 1) { // Only allow access for one matching student
+  if ($result->num_rows == 1) { 
     $row = $result->fetch_assoc();
     session_start();
     $_SESSION["student_id"] = $row["student_id"];
@@ -39,29 +37,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     echo "<h2>Welcome, " . $_SESSION["student_name"] . "</h2>";
     echo "<h3>Your Counselor: " . $_SESSION["counselor_name"] . "</h3>";
     
-    // Retrieve student details
     $student_id = $_SESSION["student_id"];
     $sql = "SELECT * FROM students WHERE student_id = $student_id";
     $result = $conn->query($sql);
     $student_details = $result->fetch_assoc();
     
-    // Display student details
     echo "<h4>Student Details</h4>";
     echo "<ul>";
     foreach ($student_details as $key => $value) {
-      if ($key != "student_id") { // Exclude student_id
+      if ($key != "student_id") {
         echo "<li>$key: $value</li>";
       }
     }
     echo "</ul>";
     
-    // Retrieve attendance (basic implementation)
     $sql = "SELECT a.created_at, a.present
             FROM attendance AS a
             WHERE a.student_id = $student_id";
     $result = $conn->query($sql);
     
-    // Display attendance (if any)
     if ($result->num_rows > 0) {
       echo "<h4>Attendance</h4>";
       echo "<table>";
