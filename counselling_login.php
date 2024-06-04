@@ -60,7 +60,7 @@
       <input type="submit" value="Login" class="login-button">
     </form>
     <?php
-      // Display error message if login fails (optional)
+      
       if (isset($_GET['error'])) {
         echo "<p style='color: red;'>Invalid username or password.</p>";
       }
