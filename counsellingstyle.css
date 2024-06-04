@@ -1,4 +1,3 @@
-/* General styles */
 body {
 font-family: sans-serif;
 margin: 0;
@@ -18,7 +17,6 @@ li {
 margin-bottom: 5px;
 }
 
-/* Navigation bar */
 a {
 text-decoration: none;
 color: black;
@@ -28,7 +26,6 @@ a:hover {
 color: #999;
 }
 
-/* Form styles */
 label {
 display: block;
 margin-bottom: 5px;
@@ -49,7 +46,6 @@ input[type="checkbox"] {
 margin-right: 5px;
 }
 
-/* Success and error messages */
 p {
 margin: 10px 0;
 }
@@ -62,7 +58,6 @@ color: green;
 color: red;
 }
 
-/* Highlight green elements */
 .green {
 color: green;
 }
@@ -79,7 +74,6 @@ cursor: pointer;
 .green input[type="submit"]:hover {
 background-color: #008000;
 }
-/* General styles */
 body {
 font-family: sans-serif;
 margin: 0;
@@ -99,10 +93,7 @@ li {
 margin-bottom: 5px;
 }
 
-/* Navigation bar (assuming this exists elsewhere on your pages) */
-/* Add styles for navigation bar elements here */
 
-/* Form styles */
 label {
 display: block;
 margin-bottom: 5px;
@@ -123,7 +114,6 @@ input[type="checkbox"] {
 margin-right: 5px;
 }
 
-/* Success and error messages */
 .success,
 .error {
 margin: 10px 0;
@@ -141,7 +131,6 @@ background-color: #f2dede;
 color: red;
 }
 
-/* Green buttons */
 .green-btn {
 background-color: green;
 color: white;
